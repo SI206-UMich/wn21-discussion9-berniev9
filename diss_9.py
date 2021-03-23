@@ -19,40 +19,34 @@ def getEggMoves(pokemon):
     url = 'https://pokemondb.net/pokedex/'+pokemon
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'html.parser')
-    div1 = soup.find('div', class_="tabset-moves-game sv-tabs-wrapper")
-    div2 = div1.find('div', class_="sv-tabs-panel-list")
-    div =div2.find('div', class_="resp-scroll")
-    table = div.find('table')
-    body = table.find('tbody' )
-    th = body.find_all('tr')
-    for tag in th:
-        name = tag.find('td', class_="cell-name")
-        a = name.find('a')
-        print(a.text)
+    new_list = []
+    anchor = soup.find_all('table', class_="data-table")[2]
+    anchor1 = anchor.find_all('a', class_="ent-name")
+    for mo in anchor1:
+        new_list.append(mo.text)
 
+
+    return new_list 
 
     #add code here
-    pass
+    
 # Task 3: Create a regex expression that will find all the times that have these formats: @2pm @5 pm @10am
 # Return a list of these times without the '@' symbol. E.g. ['2pm', '5 pm', '10am']
 def findLetters(sentences):
     # initialize an empty list
-    pass
+    new_list = []
 
     # define the regular expression
-    
-
+    reg = r'@(\d{1,2}[\spa][pm]+)'
     # loop through each sentence or phrase in sentences
-    
-
+    for i in sentences:
     # find all the words that match the regular expression in each sentence
-       
-
+        lis = re.findall(reg,i)
+        for ip in lis:
+            new_list.append(ip)
     # loop through the found words and add the words to your empty list
-
-
     #return the list of the last letter of all words that begin or end with a capital letter
-
+    return new_list
 
 
 def main():
